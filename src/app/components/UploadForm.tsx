@@ -15,9 +15,6 @@ export function UploadForm() {
 
       const res = await fetch("/api/upload", {
         method: "POST",
-        // headers: {
-        //   "Content-Type": 'multipart/form-data;boundary="boundary"',
-        // },
         body: data,
       });
       // handle the error

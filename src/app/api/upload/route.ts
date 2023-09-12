@@ -1,6 +1,5 @@
 import { writeFile } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
-import { join } from "path";
 
 // POST saving sent file to a directory
 export async function POST(req: NextRequest) {
@@ -18,19 +17,9 @@ export async function POST(req: NextRequest) {
   const buffer = Buffer.from(bytes);
 
   // writing file
-  const path = join("/", "storage", file.name);
+  const path = `/tmp/${file.name}`;
 
-  //   await writeFile(path, buffer, (err) => {
-  //     if (err)
-  //       NextResponse.json(
-  //         { success: false, err },
-  //         { status: 500, statusText: "Could not save the file" }
-  //       );
-  //     NextResponse.json(
-  //       { success: true },
-  //       { status: 201, statusText: `File ${file.name} added` }
-  //     );
-  //   });
+  await writeFile(path, buffer);
   return NextResponse.json({ success: true, path });
 }
 
