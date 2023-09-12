@@ -16,12 +16,11 @@ export default function GetDirFiles() {
 
       const filesArray = await res.json();
       setFiles(filesArray);
-      setFetching(false);
     } catch (e: any) {
       // Handle errors here
       console.error(e);
-      setFetching(false);
     }
+    setFetching(false);
   };
   return (
     <div>

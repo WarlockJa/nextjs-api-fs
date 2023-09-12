@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
   const buffer = Buffer.from(bytes);
 
   // writing file
-  const path = `/storage/${file.name}`;
+  const path = `/tmp/${file.name}`;
 
   try {
     await writeFile(path, buffer);
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
-  const directoryPath = path.join("/", "storage");
+  const directoryPath = path.join("/", "tmp");
   try {
     const files = await readdir(directoryPath);
     return NextResponse.json(files);
