@@ -1,5 +1,6 @@
-import { writeFile } from "fs/promises";
+import { writeFile, readdir } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
+import path from "path";
 
 // POST saving sent file to a directory
 export async function POST(req: NextRequest) {
@@ -24,5 +25,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, path });
   } catch (error) {
     return NextResponse.json({ success: false, error });
+  }
+}
+
+export async function GET() {
+  const directoryPath = path.join("/", "tmp");
+  try {
+    const files = await readdir(directoryPath);
+    return NextResponse.json(files);
+  } catch (error) {
+    //handling error
+    return NextResponse.json({ error });
   }
 }
