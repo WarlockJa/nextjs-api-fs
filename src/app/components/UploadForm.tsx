@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export function UploadForm() {
-  const [file, setFile] = useState<File>();
+  const [file, setFile] = useState<File | undefined>(undefined);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,7 +18,11 @@ export function UploadForm() {
         body: data,
       });
       // handle the error
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) {
+        throw new Error(await res.text());
+      } else {
+        setFile(undefined);
+      }
 
       console.log(res.json());
     } catch (e: any) {
@@ -34,7 +38,7 @@ export function UploadForm() {
         name="file"
         onChange={(e) => setFile(e.target.files?.[0])}
       />
-      <input type="submit" value="Upload" />
+      <input type="submit" value="Upload" disabled={!file} />
     </form>
   );
 }

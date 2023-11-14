@@ -1,8 +1,9 @@
+import { Dirent } from "fs";
 import { writeFile, readdir } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 
-// POST saving sent file to a directory
+// POST saving sent file to a directory on a server
 export async function POST(req: NextRequest) {
   const data = await req.formData();
   const file: File | null = data.get("file") as unknown as File;
@@ -28,10 +29,17 @@ export async function POST(req: NextRequest) {
   }
 }
 
+const filterFiles = (direntsArray: Dirent[]) => {
+  return direntsArray
+    .filter((dirent) => dirent.isFile())
+    .map((file) => file.name);
+};
+
 export async function GET() {
   const directoryPath = path.join("/", "tmp");
   try {
-    const files = await readdir(directoryPath);
+    const result = await readdir(directoryPath, { withFileTypes: true });
+    const files = filterFiles(result);
     return NextResponse.json(files);
   } catch (error) {
     //handling error
