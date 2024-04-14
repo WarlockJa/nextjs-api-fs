@@ -1,3 +1,4 @@
+import { env } from "@/env";
 import { readFile } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -12,7 +13,9 @@ export async function POST(req: NextRequest) {
     );
 
   try {
-    const result = await readFile(`/tmp/${fileName}`);
+    const result = await readFile(
+      `/${env.NEXT_PUBLIC_FOLDER_PATH}/${fileName}`
+    );
     return NextResponse.json({ success: true, data: result });
   } catch (error) {
     return NextResponse.json({ success: false, error });

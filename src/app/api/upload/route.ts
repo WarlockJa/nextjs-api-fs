@@ -1,3 +1,4 @@
+import { env } from "@/env";
 import { Dirent } from "fs";
 import { writeFile, readdir } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
   const buffer = Buffer.from(bytes);
 
   // writing file
-  const path = `/tmp/${file.name}`;
+  const path = `/${env.NEXT_PUBLIC_FOLDER_PATH}/${file.name}`;
 
   try {
     await writeFile(path, buffer);
@@ -36,7 +37,7 @@ const filterFiles = (direntsArray: Dirent[]) => {
 };
 
 export async function GET() {
-  const directoryPath = path.join("/", "tmp");
+  const directoryPath = path.join("/", env.NEXT_PUBLIC_FOLDER_PATH);
   try {
     const result = await readdir(directoryPath, { withFileTypes: true });
     const files = filterFiles(result);
