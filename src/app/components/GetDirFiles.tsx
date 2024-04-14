@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import "./getdirfiles.css";
+import { useAtom } from "jotai";
+import { pathAtom } from "@/jotai";
 
 export default function GetDirFiles() {
   const [files, setFiles] = useState([]);
@@ -56,13 +58,50 @@ export default function GetDirFiles() {
     }
   };
 
+  // TEST
+  const [dirPath, setDirPath] = useAtom(pathAtom);
+  // handle files list
+  const handleGetDirFiles = async () => {
+    setFetching(true);
+    try {
+      const res = await fetch(`/api/upload?path=${dirPath}`, {
+        method: "GET",
+      });
+      // handle the error
+      if (!res.ok) throw new Error(await res.text());
+
+      const filesArray = await res.json();
+      setFiles(filesArray);
+    } catch (e: any) {
+      // Handle errors here
+      console.error(e);
+    }
+    setFetching(false);
+  };
+
   return (
     <section>
       <button onClick={() => handleGetFiles()} disabled={fetching}>
         Get Files
       </button>
+      {/* TEST */}
+      <div>
+        <label htmlFor="dirPath">{dirPath}</label>
+        <input
+          id="dirPath"
+          type="text"
+          onChange={(e) => setDirPath(e.target.value)}
+        />
+        <button onClick={() => handleGetDirFiles()}>Get {dirPath} Files</button>
+      </div>
+      {/* TEST */}
       <ul className="filesList">
-        {files.length === 0 ? (
+        {files.map((dir, index) => (
+          <li key={index}>
+            <pre>{JSON.stringify(dir, null, 2)}</pre>
+          </li>
+        ))}
+        {/* {files.length === 0 ? (
           <div className="separator"></div>
         ) : (
           files.map((file) => (
@@ -74,7 +113,7 @@ export default function GetDirFiles() {
               {file}
             </li>
           ))
-        )}
+        )} */}
       </ul>
     </section>
   );

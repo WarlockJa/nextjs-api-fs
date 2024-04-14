@@ -36,12 +36,22 @@ const filterFiles = (direntsArray: Dirent[]) => {
     .map((file) => file.name);
 };
 
-export async function GET() {
-  const directoryPath = path.join("/", env.NEXT_PUBLIC_FOLDER_PATH);
+export async function GET(req: NextRequest) {
+  // TEST
+  const url = new URL(req.url);
+  const dirPath = url.searchParams.get("path");
+  const directoryPath = path.join(
+    "/",
+    dirPath ? dirPath : env.NEXT_PUBLIC_FOLDER_PATH
+  );
+  // TEST
+  // const directoryPath = path.join("/", env.NEXT_PUBLIC_FOLDER_PATH);
   try {
     const result = await readdir(directoryPath, { withFileTypes: true });
     const files = filterFiles(result);
-    return NextResponse.json(files);
+    // return NextResponse.json(files);
+    // TEST
+    return NextResponse.json(result);
   } catch (error) {
     //handling error
     return NextResponse.json({ error });
