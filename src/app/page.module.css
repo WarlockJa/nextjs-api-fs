@@ -1,8 +1,0 @@
-.main {
-  margin: 0 auto;
-  padding: 1em 0;
-  height: 100dvh;
-  height: 100vh;
-  overflow: hidden;
-  max-width: var(--max-width);
-}

@@ -1,7 +1,4 @@
 import FileExplorer from "./_components/FileExplorer";
-import GetDirFiles from "./_components/GetDirFiles";
-import { UploadForm } from "./_components/UploadForm";
-import styles from "./page.module.css";
 
 export default function Home({
   searchParams,
@@ -10,16 +7,11 @@ export default function Home({
 }) {
   // reading url path parameter
   const path = searchParams?.path ? searchParams?.path : "/";
-
   return (
-    <main className={styles.main}>
-      <div className={styles.upload}>
-        <UploadForm />
+    <main className="space-y-12 flex justify-center">
+      <div className="max-w-4xl flex-1">
+        <FileExplorer path={path} />
       </div>
-      {/* <div className={styles.getfiles}>
-        <GetDirFiles />
-      </div> */}
-      <FileExplorer path={path} />
     </main>
   );
 }
