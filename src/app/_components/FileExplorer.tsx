@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import fs from "fs/promises";
 import getSize from "@/lib/getSize";
+import FileMenu from "./FileMenu";
 
 export default async function FileExplorer({ path }: { path: string }) {
   let files;
@@ -15,7 +16,6 @@ export default async function FileExplorer({ path }: { path: string }) {
       result.map(async (entry) => {
         const isFile = entry.isFile();
         const stats = isFile && (await fs.stat(entry.path + "/" + entry.name));
-        // return { ...entry, ...stats };
         return { ...entry, isFile, size: stats ? stats.size : null };
       })
     );
@@ -36,7 +36,21 @@ export default async function FileExplorer({ path }: { path: string }) {
             {file.isFile ? (
               <div className="flex justify-between text-muted-foreground hover:bg-secondary">
                 <p>{file.name}</p>
-                <p>{file.size && getSize(file.size)}</p>
+                <div className="flex">
+                  <p>{file.size && getSize(file.size)}</p>
+                  <FileMenu
+                    name={file.name}
+                    path={file.path}
+                    size={file.size ? file.size : 0}
+                  />
+                </div>
+                {/* <a
+                  href={`/?path=${
+                    file.path === "/" ? file.path : `${file.path}/`
+                  }${file.name}`}
+                >
+                  {file.name}
+                </a> */}
               </div>
             ) : (
               <div className="hover:bg-secondary">
