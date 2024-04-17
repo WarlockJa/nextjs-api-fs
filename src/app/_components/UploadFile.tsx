@@ -15,7 +15,7 @@ export default function UploadFile({ path }: { path: string }) {
 
   return (
     <form action={action} ref={formRef}>
-      <Label htmlFor="file" className="cursor-pointer">
+      <Label htmlFor="file" className="cursor-pointer" title="upload file">
         <span className="sr-only">
           {error?.file ? "invalid file input" : "upload file"}
         </span>

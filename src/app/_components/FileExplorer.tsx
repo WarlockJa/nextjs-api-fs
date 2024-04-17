@@ -7,6 +7,7 @@ import fs from "fs/promises";
 import getSize from "@/lib/getSize";
 import FileMenu from "./FileMenu";
 import UploadFile from "./UploadFile";
+import CreateFolder from "./CreateFolder";
 
 export default async function FileExplorer({ path }: { path: string }) {
   let files;
@@ -30,6 +31,7 @@ export default async function FileExplorer({ path }: { path: string }) {
       <div className="flex justify-between items-center">
         <PathNavigator path={path} />
         <div className="flex items-center">
+          <CreateFolder path={path} />
           <UploadFile path={path} />
           <ThemeToggle />
         </div>
