@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import fs from "fs/promises";
 import getSize from "@/lib/getSize";
 import FileMenu from "./FileMenu";
+import UploadFile from "./UploadFile";
 
 export default async function FileExplorer({ path }: { path: string }) {
   let files;
@@ -28,7 +29,10 @@ export default async function FileExplorer({ path }: { path: string }) {
     <>
       <div className="flex justify-between items-center">
         <PathNavigator path={path} />
-        <ThemeToggle />
+        <div className="flex items-center">
+          <UploadFile path={path} />
+          <ThemeToggle />
+        </div>
       </div>
       <ul className="overflow-scroll h-[95vh] px-4">
         {files.map((file) => (
