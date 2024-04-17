@@ -33,14 +33,6 @@ export default function FileMenu({
             Download
           </Link>
         </DropdownMenuItem>
-        {/* <DropdownDownloadFile name={name} path={path} size={size} /> */}
-        {/* <DropdownMenuItem asChild>
-          <Link href={`/admin/products/${product.id}/edit`}>Edit</Link>
-        </DropdownMenuItem>
-        <ActiveToggleDropdownItem
-          id={product.id}
-          isAvailableForPurchase={product.isAvailableForPurchase}
-        /> */}
         <DropdownMenuSeparator />
         <DropdownDeleteFile name={name} path={path} />
       </DropdownMenuContent>

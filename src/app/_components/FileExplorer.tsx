@@ -8,13 +8,14 @@ import getSize from "@/lib/getSize";
 import FileMenu from "./FileMenu";
 import UploadFile from "./UploadFile";
 import CreateFolder from "./CreateFolder";
+import FolderMenu from "./FolderMenu";
 
 export default async function FileExplorer({ path }: { path: string }) {
-  let files;
+  let entries;
   try {
     const result = await readdir(path, { withFileTypes: true });
 
-    files = await Promise.all(
+    entries = await Promise.all(
       result.map(async (entry) => {
         const isFile = entry.isFile();
         const stats = isFile && (await fs.stat(entry.path + "/" + entry.name));
@@ -37,51 +38,30 @@ export default async function FileExplorer({ path }: { path: string }) {
         </div>
       </div>
       <ul className="overflow-scroll h-[95vh] px-4">
-        {files.map((file) => (
-          <li key={file.name} className="listItem">
-            {file.isFile ? (
+        {entries.map((entry) => (
+          <li key={entry.name} className="listItem">
+            {entry.isFile ? (
               <div className="flex justify-between text-muted-foreground hover:bg-secondary">
-                <p>{file.name}</p>
+                <p>{entry.name}</p>
                 <div className="flex">
-                  <p>{file.size && getSize(file.size)}</p>
+                  <p>{entry.size && getSize(entry.size)}</p>
                   <FileMenu
-                    name={file.name}
-                    path={file.path}
-                    size={file.size ? file.size : 0}
+                    name={entry.name}
+                    path={entry.path}
+                    size={entry.size ? entry.size : 0}
                   />
                 </div>
-                {/* <a
-                  href={`/?path=${
-                    file.path === "/" ? file.path : `${file.path}/`
-                  }${file.name}`}
-                >
-                  {file.name}
-                </a> */}
               </div>
             ) : (
-              <div className="hover:bg-secondary">
+              <div className="flex justify-between hover:bg-secondary">
                 <Link
                   href={`/?path=${
-                    file.path === "/" ? file.path : `${file.path}/`
-                  }${file.name}`}
+                    entry.path === "/" ? entry.path : `${entry.path}/`
+                  }${entry.name}`}
                 >
-                  {file.name}
+                  {entry.name}
                 </Link>
-                {/* <a
-                  href={`/?path=${
-                    file.path === "/" ? file.path : `${file.path}/`
-                  }${file.name}`}
-                >
-                  {file.name}
-                </a> */}
-                {/* {file.path.includes("products") && (
-            <>
-              <button asChild>
-                <a href={`/admin/fstest/files/${file.name}`}>Download</a>
-              </button>
-              <DeleteFile filename={file.name} />
-            </>
-          )} */}
+                <FolderMenu name={entry.name} path={entry.path} />
               </div>
             )}
           </li>
