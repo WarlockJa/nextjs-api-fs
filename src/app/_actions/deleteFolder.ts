@@ -9,7 +9,7 @@ export async function deleteFolder({
   name: string;
   path: string;
 }) {
-  await fs.rmdir(`${path}/${name}`, { recursive: true });
+  await fs.rm(`${path}/${name}`, { recursive: true, force: true });
 
   revalidatePath("/");
 }
