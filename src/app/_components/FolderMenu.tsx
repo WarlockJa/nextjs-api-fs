@@ -3,7 +3,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreVertical } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { DropdownDeleteFolder } from "./FileMenuActions";
 
 export default function FolderMenu({
@@ -16,7 +16,7 @@ export default function FolderMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <MoreVertical />
+        <MoreHorizontal />
         <span className="sr-only">Actions</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent>

@@ -5,7 +5,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreVertical } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { DropdownDeleteFile } from "./FileMenuActions";
 
@@ -21,7 +21,7 @@ export default function FileMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <MoreVertical />
+        <MoreHorizontal />
         <span className="sr-only">Actions</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent>

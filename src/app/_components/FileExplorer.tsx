@@ -28,8 +28,8 @@ export default async function FileExplorer({ path }: { path: string }) {
   }
 
   return (
-    <>
-      <div className="flex justify-between items-center">
+    <div className="overflow-scroll h-full">
+      <div className="flex justify-between items-center sticky top-0 bg-secondary">
         <PathNavigator path={path} />
         <div className="flex items-center">
           <CreateFolder path={path} />
@@ -37,7 +37,7 @@ export default async function FileExplorer({ path }: { path: string }) {
           <ThemeToggle />
         </div>
       </div>
-      <ul className="overflow-scroll h-[95vh] px-4">
+      <ul className="px-4">
         {entries.map((entry) => (
           <li key={entry.name} className="listItem">
             {entry.isFile ? (
@@ -67,6 +67,6 @@ export default async function FileExplorer({ path }: { path: string }) {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
