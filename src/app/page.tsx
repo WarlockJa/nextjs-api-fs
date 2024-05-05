@@ -8,11 +8,10 @@ export default function Home({
   // reading url path parameter
   const path = searchParams?.path ? searchParams?.path : "/";
   return (
-    <FileExplorer path={path} />
-    // <main className="space-y-12 flex justify-center">
-    //   <div className="max-w-4xl flex-1 h-screen">
-    //     <FileExplorer path={path} />
-    //   </div>
-    // </main>
+    <main className="space-y-12 flex justify-center">
+      <div className="max-w-4xl flex-1 h-screen">
+        <FileExplorer path={path} />
+      </div>
+    </main>
   );
 }
