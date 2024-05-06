@@ -1,4 +1,4 @@
-import { readFile } from "fs-promise-polyfill";
+import { readFile } from "fs/promises";
 import { notFound } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
@@ -34,5 +34,3 @@ export async function GET(req: NextRequest) {
     return notFound();
   }
 }
-
-// export const runtime = "edge";
