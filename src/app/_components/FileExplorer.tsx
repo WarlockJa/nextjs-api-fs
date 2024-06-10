@@ -61,9 +61,6 @@ export default async function FileExplorer({ path }: { path: string }) {
                 >
                   {entry.name}
                 </Link>
-                {/* <div className="text-slate-400">{path}</div>
-                <div className="text-slate-400">{entry.path}</div>
-                <div className="text-slate-400">{entry.name}</div> */}
                 <FolderMenu name={entry.name} path={path} />
               </div>
             )}
