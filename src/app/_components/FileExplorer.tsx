@@ -24,7 +24,7 @@ export default async function FileExplorer({ path }: { path: string }) {
     );
   } catch (error) {
     console.log(error);
-    redirect("/?path=/");
+    redirect("/?path=/tmp");
   }
 
   return (

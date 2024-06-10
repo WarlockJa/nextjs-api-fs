@@ -6,7 +6,7 @@ export default function Home({
   searchParams?: { path: string };
 }) {
   // reading url path parameter
-  const path = searchParams?.path ? searchParams?.path : "/";
+  const path = searchParams?.path ? searchParams?.path : "/tmp";
   return (
     <main className="space-y-12 flex justify-center">
       <div className="max-w-4xl flex-1 h-screen">
