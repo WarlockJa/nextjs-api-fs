@@ -18,7 +18,7 @@ export default async function FileExplorer({ path }: { path: string }) {
     entries = await Promise.all(
       result.map(async (entry) => {
         const isFile = entry.isFile();
-        const stats = isFile && (await fs.stat(entry.path + "/" + entry.name));
+        const stats = isFile && (await fs.stat(path + "/" + entry.name));
         return { ...entry, isFile, size: stats ? stats.size : null };
       })
     );
@@ -47,7 +47,7 @@ export default async function FileExplorer({ path }: { path: string }) {
                   <p>{entry.size && getSize(entry.size)}</p>
                   <FileMenu
                     name={entry.name}
-                    path={entry.path}
+                    path={path}
                     size={entry.size ? entry.size : 0}
                   />
                 </div>
@@ -55,15 +55,16 @@ export default async function FileExplorer({ path }: { path: string }) {
             ) : (
               <div className="flex justify-between hover:bg-secondary">
                 <Link
-                  href={`/?path=${
-                    entry.path === "/" ? entry.path : `${entry.path}/`
-                  }${entry.name}`}
+                  href={`/?path=${path === "/" ? path : `${path}/`}${
+                    entry.name
+                  }`}
                 >
                   {entry.name}
                 </Link>
+                {/* <div className="text-slate-400">{path}</div>
                 <div className="text-slate-400">{entry.path}</div>
-                <div className="text-slate-400">{entry.name}</div>
-                <FolderMenu name={entry.name} path={entry.path} />
+                <div className="text-slate-400">{entry.name}</div> */}
+                <FolderMenu name={entry.name} path={path} />
               </div>
             )}
           </li>
